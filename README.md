@@ -19,3 +19,5 @@ I'm aiming to try to encapsulate functionality that complicates the user, for ex
 - contains(val: felt)
 - size()
 ```
+
+Can see examples of use on the [list_test.cairo](https://github.com/sdgalvan/data-structures-cairo/blob/master/tests/list_test.cairo) (Using Protostar)
