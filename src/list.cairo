@@ -8,8 +8,6 @@ from starkware.cairo.common.dict_access import DictAccess
 from src.utils.constants import LIST_SIZE, UNDEFINED
 from src.utils.comparator import is_ge
 
-// Simple implementation of list, like classic array list on java.
-
 func new_list{range_check_ptr}() -> DictAccess* {
     alloc_locals;
     let (local list) = default_dict_new(default_value=UNDEFINED);
@@ -57,6 +55,17 @@ func remove{range_check_ptr, list: DictAccess*}(idx: felt) -> felt {
     } else {
         return value;
     }
+}
+
+func replace{range_check_ptr, list: DictAccess*}(idx: felt, value: felt) {
+    let list_size = size();
+    tempvar idx_out_of_bounds = is_ge(idx, list_size); 
+    if (idx_out_of_bounds == TRUE) {
+        return ();
+    }
+
+    dict_write{dict_ptr=list}(key=idx, new_value=value);  
+    return ();
 }
 
 func contains{range_check_ptr, list: DictAccess*}(value: felt) -> felt {
