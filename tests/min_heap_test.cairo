@@ -3,7 +3,7 @@
 from starkware.cairo.common.bool import TRUE, FALSE
 from starkware.cairo.common.dict_access import DictAccess
 
-from src.min_heap import new_heap, poll, add, size, contains
+from src.min_heap import new_heap, poll, add, size, contains, peek
 from src.utils.constants import UNDEFINED
 
 @external
@@ -89,3 +89,20 @@ func test_contains{range_check_ptr}() {
     return ();
 }
 
+
+@external
+func test_peek{range_check_ptr}() {
+    alloc_locals;
+    let heap: DictAccess* = new_heap();
+    add{heap=heap}(5);
+    add{heap=heap}(7);
+    add{heap=heap}(1);
+
+    let peek_result = peek{heap=heap}();
+    assert peek_result = 1;
+
+    let heap_size_result = size{heap=heap}();
+    assert heap_size_result = 3;
+
+    return ();
+}

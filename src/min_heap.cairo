@@ -41,6 +41,16 @@ func add{range_check_ptr, heap: DictAccess*}(val: felt) {
     return();
 }
 
+func peek{range_check_ptr, heap: DictAccess*}() -> felt {
+    alloc_locals;
+    let heap_size = size();
+    if (heap_size == 0) {
+        return UNDEFINED;
+    } 
+    let (root) = dict_read{dict_ptr=heap}(key=0);
+    return root;
+}
+
 // Delete root value from min heap.
 // @dev Heap must be passed as an implicit argument
 // @dev tempvars used to handle revoked references for implicit args
