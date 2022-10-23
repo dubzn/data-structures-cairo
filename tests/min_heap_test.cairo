@@ -36,7 +36,6 @@ func test_poll{range_check_ptr}() {
     assert val = 1;
     let heap_size_result = size{heap=heap}();
     assert heap_size_result = 4;
-    
 
     let val = poll{heap=heap}();
     assert val = 4;
